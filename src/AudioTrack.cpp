@@ -79,4 +79,6 @@ void AudioTrack::get_waveform_copy(double* buffer, size_t buffer_size) const {
     if (buffer && waveform_data && buffer_size <= waveform_size) {
         std::memcpy(buffer, waveform_data, buffer_size * sizeof(double));
     }
+
+    /* hellllooooooooooooooooooo gaaaaaaaaaaaaaaaaaalllllllllllllllllllllllllllllllllllllllll */
 }
