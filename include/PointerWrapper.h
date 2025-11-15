@@ -37,8 +37,9 @@ public:
      * Think about ownership and resource management.
      * Is the default destructor sufficient here?
      */
-    ~PointerWrapper() =default;
-
+    ~PointerWrapper(){ 
+     delete ptr;
+    }
     // ========== COPY OPERATIONS (DELETED) ==========
 
     /**
@@ -60,7 +61,11 @@ public:
      * HINT: How should ownership transfer from one wrapper to another?
      * What should happen to the source wrapper after the move?
      */
-    PointerWrapper(PointerWrapper&& other) noexcept {}
+    PointerWrapper(PointerWrapper&& other) noexcept {
+
+
+        
+    }
 
     /**
      * TODO: Implement move assignment operator
@@ -80,6 +85,9 @@ public:
      */
 
     T& operator*() const {
+        if (!ptr) {
+            throw std::runtime_error("null pointer dereference");
+        }
         return *ptr;
     };
 
@@ -89,8 +97,11 @@ public:
      * What safety checks should you perform?
      */
     T* operator->() const {
-        return nullptr;
-    }
+        if (ptr != nullptr) {
+            return ptr;
+        }
+        throw std::runtime_error("null pointer");
+        }
 
     /**
      * TODO: Implement get() function
@@ -99,8 +110,11 @@ public:
      * @throws std::runtime_error if ptr is null
      */
     T* get() const {
-        return nullptr; // Placeholder
-    }
+        if (!ptr) {
+            throw std::runtime_error("null pointer in get()");
+        }
+        return ptr;
+        }
 
     // ========== OWNERSHIP MANAGEMENT ==========
 
