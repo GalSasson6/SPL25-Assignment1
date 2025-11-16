@@ -24,7 +24,11 @@ public:
     /**
      * Default constructor - creates empty wrapper
      */
-    PointerWrapper() : ptr(nullptr) {}
+    PointerWrapper() : ptr(nullptr) {
+
+
+
+    }
 
     /**
      * Constructor from raw pointer - wraps the pointer
@@ -62,7 +66,8 @@ public:
      * What should happen to the source wrapper after the move?
      */
     PointerWrapper(PointerWrapper&& other) noexcept {
-
+        ptr = other.ptr;
+        other.ptr = nullptr;
 
         
     }
@@ -124,7 +129,9 @@ public:
      * Should the wrapper still own the pointer after calling release()?
      */
     T* release() {
-        return nullptr;
+        T* temp = ptr;
+        ptr = nullptr;
+        return temp;
     }
 
     /**
@@ -133,7 +140,14 @@ public:
      * What should happen to the old pointer?
      */
     void reset(T* new_ptr = nullptr) {
+        if (ptr != new_ptr) { 
+        delete ptr; 
+        ptr = new_ptr;} 
+        
+        return; 
+
     }
+    
 
     // ========== UTILITY FUNCTIONS ==========
 
@@ -143,7 +157,10 @@ public:
      * Why might the explicit keyword be important here?
      */
     explicit operator bool() const {
-        return false; //placeholder
+
+        
+
+        return ptr == nullptr; //placeholder
     }
 
     /**
@@ -174,9 +191,12 @@ PointerWrapper<T> make_pointer_wrapper(Args&&... args) {
  */
 template<typename T>
 void swap(PointerWrapper<T>& lhs, PointerWrapper<T>& rhs) noexcept {
+
+    
     // TODO: Implement global swap function
     // HINT: You can use the member swap function
     //your code here...
+    lhs.swap(rhs);
 }
 
 #endif // POINTERWRAPPER_H
