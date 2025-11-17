@@ -69,6 +69,7 @@ public:
         ptr = other.ptr;
         other.ptr = nullptr;
 
+
         
     }
 
@@ -78,6 +79,14 @@ public:
      * Don't forget about self-assignment!
      */
     PointerWrapper& operator=(PointerWrapper&& other) noexcept {
+        if (ptr != other) { 
+            delete ptr
+            ptr = other.ptr
+            other.ptr = nullptr
+            
+            
+        }
+
         return *this;
     }
 
@@ -160,7 +169,7 @@ public:
 
         
 
-        return ptr == nullptr; //placeholder
+        return ptr != nullptr; //placeholder
     }
 
     /**
