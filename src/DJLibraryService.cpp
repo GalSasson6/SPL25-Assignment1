@@ -76,9 +76,8 @@ Playlist& DJLibraryService::getPlaylist() {
  * HINT: Leverage Playlist's find_track method
  */
 AudioTrack* DJLibraryService::findTrack(const std::string& track_title) {
-    // Your implementation here
-    return nullptr; // Placeholder
-}
+    return playlist.find_track(track_title);
+    }
 
 void DJLibraryService::loadPlaylistFromIndices(const std::string& playlist_name, 
                                                const std::vector<int>& track_indices) {
@@ -114,12 +113,18 @@ void DJLibraryService::loadPlaylistFromIndices(const std::string& playlist_name,
 
         
         }
-        std::cout << "[INFO] Playlist loaded: " << playlist_name << " (" << playlist.get_track_count() << " tracks)" << std::endl;}
+        std::cout << "[INFO] Playlist loaded: " << playlist_name << " (" << playlist.get_track_count() << " tracks)" << std::endl;
+    }
 /**
  * TODO: Implement getTrackTitles method
  * @return Vector of track titles in the playlist
  */
 std::vector<std::string> DJLibraryService::getTrackTitles() const {
-    // Your implementation here
-    return std::vector<std::string>(); // Placeholder
+std::vector<std::string> titles;
+    for (AudioTrack* track : playlist.getTracks()) {
+        titles.push_back(track->get_title());
+        
+        }
+    return titles; 
+
 }
