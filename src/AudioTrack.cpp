@@ -5,11 +5,13 @@
 
 AudioTrack::AudioTrack(const std::string& title, const std::vector<std::string>& artists, 
                       int duration, int bpm, size_t waveform_samples)
-    : title(title), artists(artists), duration_seconds(duration), bpm(bpm), 
-      waveform_size(waveform_samples) {
-
-    // Allocate memory for waveform analysis
-    waveform_data = new double[waveform_size];
+    : 
+    title(title), 
+    artists(artists), 
+    duration_seconds(duration), 
+    bpm(bpm), 
+    waveform_data(new double[waveform_samples]),
+    waveform_size(waveform_samples) {
 
     // Generate some dummy waveform data for testing
     std::random_device rd;
@@ -39,8 +41,6 @@ AudioTrack::~AudioTrack() {
     #ifdef DEBUG
     std::cout << "AudioTrack destructor called for: " << title << std::endl;
     #endif
-    delete[] waveform_data;  // Delete array, not single object!
-
 }
 
 AudioTrack::AudioTrack(const AudioTrack& other):
@@ -48,6 +48,7 @@ title(other.title),
 artists(other.artists),
 duration_seconds(other.duration_seconds),
 bpm(other.bpm),
+waveform_data(nullptr),
 waveform_size(other.waveform_size)
 {
     // TODO: Implement the copy constructor
@@ -57,7 +58,7 @@ waveform_size(other.waveform_size)
     // Your code here...
     if (waveform_size > 0 && other.waveform_data != nullptr) {
         waveform_data = new double[waveform_size];
-        for(int i = 0; i<waveform_size; i++){
+        for(size_t i = 0; i<waveform_size; i++){
             waveform_data[i] = other.waveform_data[i];
         }
     }
@@ -82,7 +83,7 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
         waveform_size = other.waveform_size;
         if (waveform_size > 0 && other.waveform_data != nullptr) {
             waveform_data = new double[waveform_size];
-            for(int i = 0; i<waveform_size; i++){
+            for(size_t i = 0; i<waveform_size; i++){
                 waveform_data[i] = other.waveform_data[i];
             }
         }
@@ -102,8 +103,8 @@ title(std::move(other.title)),
 artists(std::move(other.artists)),
 duration_seconds(other.duration_seconds),
 bpm(other.bpm),
-waveform_size(other.waveform_size),
-waveform_data(other.waveform_data)
+waveform_data(other.waveform_data),
+waveform_size(other.waveform_size)
 {
     // TODO: Implement the move constructor
     #ifdef DEBUG
