@@ -78,7 +78,13 @@ Playlist& DJLibraryService::getPlaylist() {
 AudioTrack* DJLibraryService::findTrack(const std::string& track_title) {
     return playlist.find_track(track_title);
     }
-
+DJLibraryService::~DJLibraryService() { 
+    for (AudioTrack* track : library) {
+    delete track;
+    }
+    library.clear(); 
+    
+}
 void DJLibraryService::loadPlaylistFromIndices(const std::string& playlist_name, 
                                                const std::vector<int>& track_indices) {
     // Your implementation here
