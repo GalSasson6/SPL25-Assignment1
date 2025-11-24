@@ -66,7 +66,7 @@ int DJSession::load_track_to_controller(const std::string& track_name) {
     // Your implementation here
     AudioTrack* track = library_service.findTrack(track_name); 
     if(!track){
-        std::cout << "[ERROR] Track: " << track_name << " not found in library" << std::endl;
+        std::cout << "[ERROR] Track: \"" << track_name << "\" not found in library" << std::endl;
         stats.errors++;
         return 0;
     }
@@ -132,17 +132,15 @@ bool DJSession::load_track_to_mixer_deck(const std::string& track_title) {
 void DJSession::simulate_dj_performance() {
     std::cout << "=== DJ Controller System ===" << std::endl;
     std::cout << "Starting interactive DJ session..." << std::endl;
-    // 1. Load configuration
+    
     if (!load_configuration()) {
         std::cerr << "[ERROR] Failed to load configuration. Aborting session." << std::endl;
         return;
     }
     
-    // 2. Build track library from config
-    library_service.buildLibrary(session_config.library_tracks);
+        library_service.buildLibrary(session_config.library_tracks);
     
-    // 3. Get available playlists from config
-    if (session_config.playlists.empty()) {
+        if (session_config.playlists.empty()) {
         std::cerr << "[ERROR] No playlists found in configuration. Aborting session." << std::endl;
         return;
     }
