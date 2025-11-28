@@ -74,30 +74,30 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
     #endif
     // Your code here...
     if(this != &other){
-        delete[] waveform_data;
+        double* new_waveform_data = nullptr;
+        if (other.waveform_size > 0 && other.waveform_data != nullptr) {
+            new_waveform_data = new double[other.waveform_size];
+            for(size_t i = 0; i<other.waveform_size; i++){
+                new_waveform_data[i] = other.waveform_data[i];
+            }
+        }
 
+        delete[] waveform_data;
+        
+        waveform_data = new_waveform_data;
+        waveform_size = other.waveform_size;
+    
         title = other.title;
         artists = other.artists;
         duration_seconds = other.duration_seconds;
         bpm = other.bpm;
-        waveform_size = other.waveform_size;
-        if (waveform_size > 0 && other.waveform_data != nullptr) {
-            waveform_data = new double[waveform_size];
-            for(size_t i = 0; i<waveform_size; i++){
-                waveform_data[i] = other.waveform_data[i];
-            }
-        }
-        else{
-                waveform_data = nullptr;
-        }
 
     }
 
     return *this;
 }
-/*int copy_waveform_data(){
 
-}  */
+
 AudioTrack::AudioTrack(AudioTrack&& other) noexcept :
 title(std::move(other.title)),
 artists(std::move(other.artists)),

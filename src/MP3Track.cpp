@@ -14,7 +14,7 @@ MP3Track::MP3Track(const std::string& title, const std::vector<std::string>& art
 
 void MP3Track::load() {
     std::cout << "[MP3Track::load] Loading MP3: \"" << title
-              << "\" at " << bitrate << "kbps..." << std::endl;
+              << "\" at " << bitrate << " kbps..." << std::endl;
     // TODO: Implement MP3 loading with format-specific operations
     // NOTE: Use exactly 2 spaces before the arrow (→) character
     
@@ -24,7 +24,7 @@ void MP3Track::load() {
         std:: cout << "  \u2192 No ID3  tags found." << std::endl;
 
     std::cout << "  \u2192 Decoding MP3 frames..." << std::endl;
-    std::cout << "  \u2192 Load complete" << std::endl;
+    std::cout << "  \u2192 Load complete." << std::endl;
 }
 
 void MP3Track::analyze_beatgrid() {
