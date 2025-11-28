@@ -10,7 +10,8 @@
 				"ms-python.python",
 				"mtxr.sqltools",
 				"mtxr.sqltools-driver-sqlite",
-				"ms-vsliveshare.vsliveshare"
+				"ms-vsliveshare.vsliveshare",
+				"GitHub.copilot"
 			],
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "bash"
