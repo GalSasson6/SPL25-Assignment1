@@ -37,10 +37,9 @@ Playlist::~Playlist() {
 
 
 // copy constructor 
-Playlist::Playlist(const Playlist& other) { 
-    head = nullptr; 
-    track_count = 0;
-    playlist_name = other.playlist_name;
+Playlist::Playlist(const Playlist& other) 
+    : head(nullptr), playlist_name(other.playlist_name), track_count(0) {
+        
     PlaylistNode* src_node=other.head;   
     PlaylistNode* last_node=nullptr;
     
