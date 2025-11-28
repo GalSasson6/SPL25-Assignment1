@@ -8,6 +8,8 @@ Playlist::Playlist(const std::string& name)
 }
 // TODO: Fix memory leaks!
 // Students must fix this in Phase 1
+
+
 Playlist::~Playlist() {
     #ifdef DEBUG
     std::cout << "Destroying playlist: " << playlist_name << std::endl;
@@ -32,6 +34,90 @@ Playlist::~Playlist() {
     head = nullptr;
     track_count = 0;
 }
+
+
+// copy constructor 
+Playlist::Playlist(const Playlist& other) { 
+    head = nullptr; 
+    track_count = 0;
+    playlist_name = other.playlist_name;
+    PlaylistNode* src_node=other.head;   
+    PlaylistNode* last_node=nullptr;
+    
+
+
+    while (src_node) {
+        auto wrapped_clone = src_node->track->clone();
+        AudioTrack* new_track = wrapped_clone.release(); // gives us raw pointer and move ownership to the new_track without
+        PlaylistNode* new_node = new PlaylistNode(new_track);
+        if (head==nullptr) { // first node should become head
+            head = new_node;
+        }
+        else { 
+            last_node->next = new_node;
+        }
+        last_node = new_node;
+        track_count++;
+        src_node = src_node->next;
+    }}
+
+Playlist& Playlist::operator=(const Playlist& other) {
+
+    // to block self copy 
+    if (this == &other) {
+        return *this;
+    }
+
+    //remove songs that will become not reachable 
+    PlaylistNode* current = head;
+    while (current != nullptr) {
+        PlaylistNode* next_node =current->next;
+        delete current->track;
+        delete current;        
+        current = next_node;
+        }
+    
+
+    // empty start
+    head = nullptr;
+    track_count = 0;
+
+
+    //COPY NEW DATA
+    // Now we look at the 'other' list and copy it (Just like the Constructor!)
+    playlist_name = other.playlist_name;
+    PlaylistNode* src_node = other.head;   // The person we are copying from
+    PlaylistNode* last_node = nullptr;     // our last node:
+    while (src_node) {
+        if (src_node->track) { 
+            auto wrapped_clone = src_node->track->clone();
+            AudioTrack* new_track = wrapped_clone.release();
+            
+            PlaylistNode* new_node = new PlaylistNode(new_track);
+
+            if (head==nullptr) { 
+                head = new_node;
+            }
+            else { 
+                last_node->next = new_node;} 
+
+                last_node = new_node;
+                track_count++;
+        }
+        src_node = src_node->next;
+    }   
+    
+    
+        // Move to the next item in the source list
+    
+
+    // Return a reference to the updated object
+    return *this;
+}
+
+
+
+
 
 void Playlist::add_track(AudioTrack* track) {
     if (!track) {
