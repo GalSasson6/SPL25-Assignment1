@@ -14,8 +14,12 @@
 class DJLibraryService {
 public:
     DJLibraryService(const Playlist& playlist);
+<<<<<<< HEAD
     DJLibraryService() = default;
     ~DJLibraryService();
+=======
+    DJLibraryService(): playlist(), library(){}
+>>>>>>> nitay-debugging
 
     /**
      * @brief Build the track library from parsed config data
