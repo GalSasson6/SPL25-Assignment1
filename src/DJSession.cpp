@@ -4,7 +4,8 @@
 #include <algorithm>
 #include <sstream>
 #include <dirent.h>
-
+#include <iostream>  // Fixes std::cout and std::endl
+#include <string>    // Fixes std::string
 // ========== CONSTRUCTORS & RULE OF 5 ==========
 
 
