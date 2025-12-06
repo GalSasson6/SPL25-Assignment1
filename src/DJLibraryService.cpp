@@ -22,7 +22,7 @@ void DJLibraryService::buildLibrary(const std::vector<SessionConfig::TrackInfo>&
             bool has_tags = (track_info.extra_param2!=0);
 
             AudioTrack* track = new MP3Track(track_info.title,track_info.artists,track_info.duration_seconds,track_info.bpm,track_info.extra_param1,has_tags);
-            std::cout << "MP3: MP3Track created: "<< track_info.title << " " << track_info.extra_param1 << " kbps" << std::endl; 
+            // std::cout << "MP3: MP3Track created: "<< track_info.title << " " << track_info.extra_param1 << " kbps" << std::endl; 
             library.push_back(track);    
         }
 
@@ -30,7 +30,7 @@ void DJLibraryService::buildLibrary(const std::vector<SessionConfig::TrackInfo>&
             
             AudioTrack* track = new WAVTrack(track_info.title,track_info.artists,track_info.duration_seconds,track_info.bpm,track_info.extra_param1,track_info.extra_param2);
             library.push_back(track);    
-            std::cout << "WAV: WAVTrack created: "<< track_info.title << " " << track_info.extra_param1 << " hz/ " <<track_info.extra_param2<<"bit"<< std::endl; 
+            // std::cout << "WAV: WAVTrack created: "<< track_info.title << " " << track_info.extra_param1 << " hz/ " <<track_info.extra_param2<<"bit"<< std::endl; 
 
 
         }
@@ -38,8 +38,7 @@ void DJLibraryService::buildLibrary(const std::vector<SessionConfig::TrackInfo>&
 
 
 
-    std::cout << "[INFO] Track library built:"<< library_tracks.size() << "loaded.\n";
-}
+std::cout << "[INFO] Track library built: " << library_tracks.size() << " tracks loaded" << std::endl;}
 
 /**
  * @brief Display the current state of the DJ library playlist
@@ -89,8 +88,7 @@ void DJLibraryService::loadPlaylistFromIndices(const std::string& playlist_name,
                                                const std::vector<int>& track_indices) {
     // Your implementation here
     // For now, add a placeholder to fix the linker error
-        std::cout << "[INFO]: Loading playlist:" << playlist_name << std::endl;
-
+        std::cout << "[INFO] Loading playlist: " << playlist_name << std::endl;
         playlist = Playlist(playlist_name);
         for (int index : track_indices) {
             size_t actual_index = index -1;
@@ -112,7 +110,7 @@ void DJLibraryService::loadPlaylistFromIndices(const std::string& playlist_name,
                 rawptr ->load();
                 rawptr ->analyze_beatgrid();
                 playlist.add_track(rawptr);
-                std::cout << "[INFO] Added " <<  og_track->get_title() <<" to Playlist"<< std::endl;
+                // std::cout << "[INFO] Added " <<  og_track->get_title() <<" to Playlist"<< std::endl;
 
 
 

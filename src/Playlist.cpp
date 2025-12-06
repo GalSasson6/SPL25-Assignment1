@@ -159,10 +159,11 @@ void Playlist::remove_track(const std::string& title) {
         if (current -> track){
             delete current -> track;
             current->track = nullptr;
+                }
         delete current;
         
         
-        }
+    
         track_count--;
         
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
